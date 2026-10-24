@@ -12,9 +12,9 @@ type Props = {
 
 export default function ChatWidget({
   children,
-  title = 'Silverline Support',
-  subtitle = 'Answers come from an AI assistant',
-  launcherLabel = 'Chat with us',
+  title = 'Recruitment enquiries',
+  subtitle = 'Answers come from an automated assistant',
+  launcherLabel = 'Ask a question',
 }: Props) {
   const [open, setOpen] = useState(false);
   // The chat is not mounted until the panel is opened, so a visitor who never

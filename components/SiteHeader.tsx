@@ -16,16 +16,16 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-line bg-surface/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4">
         <Link href="/" className="flex items-baseline gap-2 no-underline">
-          <span className="font-[family-name:var(--font-display)] text-xl font-semibold tracking-tight text-ink">
+          <span className="font-[family-name:var(--font-display)] text-xl font-bold tracking-tight text-ink">
             TalentDuct
           </span>
-          <span className="font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.18em] text-muted">
-           RTAM-AI
+          <span className="hidden font-[family-name:var(--font-geist-mono)] text-[10px] uppercase tracking-[0.18em] text-muted sm:inline">
+            Recruitment
           </span>
         </Link>
 
-        <nav aria-label="Main" className="ml-auto hidden md:block">
-          <ul className="flex items-center gap-7">
+        <nav aria-label="Main" className="ml-auto hidden lg:block">
+          <ul className="flex items-center gap-6">
             {NAV.map((item) => (
               <li key={item.href}>
                 <Link
@@ -34,7 +34,7 @@ export default function SiteHeader() {
                   className={
                     'relative py-1 text-sm no-underline transition-colors ' +
                     (isActive(item.href)
-                      ? 'text-ink after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:bg-brand'
+                      ? 'text-ink after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:bg-brand'
                       : 'text-muted hover:text-ink')
                   }
                 >
@@ -45,12 +45,12 @@ export default function SiteHeader() {
           </ul>
         </nav>
 
-        <div className="ml-auto flex items-center gap-4 md:ml-0">
+        <div className="ml-auto flex items-center gap-4 lg:ml-0">
           <a
-            href="tel:+61730000000"
+            href="tel:+61735550100"
             className="hidden font-[family-name:var(--font-geist-mono)] text-sm text-ink no-underline sm:inline"
           >
-            07 3000 0000
+            07 3555 0100
           </a>
 
           <button
@@ -59,7 +59,7 @@ export default function SiteHeader() {
             aria-expanded={open}
             aria-controls="mobile-nav"
             aria-label={open ? 'Close menu' : 'Open menu'}
-            className="rounded-md p-2 text-ink hover:bg-wash md:hidden"
+            className="rounded-md p-2 text-ink hover:bg-wash lg:hidden"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               {open ? (
@@ -73,7 +73,7 @@ export default function SiteHeader() {
       </div>
 
       {open && (
-        <nav id="mobile-nav" aria-label="Main" className="border-t border-line md:hidden">
+        <nav id="mobile-nav" aria-label="Main" className="border-t border-line lg:hidden">
           <ul className="mx-auto max-w-6xl px-6 py-2">
             {NAV.map((item) => (
               <li key={item.href}>

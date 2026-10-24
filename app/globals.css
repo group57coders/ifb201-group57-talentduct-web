@@ -1,42 +1,49 @@
 @import "tailwindcss";
 
 /* ===========================================================================
-   TalentDuct RTAM-AI — design tokens
+   TalentDuct Recruitment — design tokens
 
-   Deep eucalypt rather than the standard clinical blue: calmer, and specific
-   to place. Defined as custom properties and mapped into Tailwind below, so
-   retheming means editing this block and nothing else.
+   The palette is deliberately near-neutral. In a recruitment business the
+   information that matters is status: is this requisition on track, at risk,
+   or breached. Colour is reserved for that signal, so it carries meaning
+   rather than decoration.
    =========================================================================== */
 
 :root {
   color-scheme: light;
 
-  --ink: #16302a;      /* headings, emphasis */
-  --body: #45554e;     /* body copy */
-  --muted: #66766f;    /* labels, secondary detail */
-  --brand: #2f6b54;    /* links, active nav, available status */
-  --signal: #8f5d18;   /* amber — limited availability */
-  --surface: #fbfbf9;  /* page background */
+  --ink: #16181c;      /* headings */
+  --body: #464b52;     /* body copy */
+  --muted: #6a7079;    /* labels, metadata */
+  --brand: #1f3f73;    /* links, active nav, primary actions */
+  --surface: #fafaf8;  /* page background */
   --card: #ffffff;     /* cards and panels */
-  --wash: #eef2ee;     /* section tint */
-  --line: #dde4df;     /* hairlines */
+  --wash: #f0f0ec;     /* section tint */
+  --line: #dedfd9;     /* hairlines */
+
+  /* SLA status system. Every use pairs the colour with a word — colour is
+     never the only signal. */
+  --ontrack: #146b4a;
+  --atrisk: #8c5a0e;
+  --breached: #a3302a;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
 
-    /* Rebalanced rather than inverted — chroma drops and the brand lightens
-       so it still passes contrast against a dark ground. */
-    --ink: #eaf1ec;
-    --body: #b4c3bb;
-    --muted: #83978d;
-    --brand: #6dbd95;
-    --signal: #d9a352;
-    --surface: #0e1613;
-    --card: #15201c;
-    --wash: #131e1a;
-    --line: #26332e;
+    --ink: #eef0ee;
+    --body: #b7bdc2;
+    --muted: #868d95;
+    --brand: #86aae0;
+    --surface: #101216;
+    --card: #171a1f;
+    --wash: #14171b;
+    --line: #282d34;
+
+    --ontrack: #56b98c;
+    --atrisk: #d3a052;
+    --breached: #e0736c;
   }
 }
 
@@ -45,11 +52,13 @@
   --color-body: var(--body);
   --color-muted: var(--muted);
   --color-brand: var(--brand);
-  --color-signal: var(--signal);
   --color-surface: var(--surface);
   --color-card: var(--card);
   --color-wash: var(--wash);
   --color-line: var(--line);
+  --color-ontrack: var(--ontrack);
+  --color-atrisk: var(--atrisk);
+  --color-breached: var(--breached);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
@@ -77,16 +86,16 @@ a { color: inherit; }
 
 h1, h2, h3, h4 {
   color: var(--ink);
-  /* Fraunces is variable: set optical size and softness once, not per heading. */
-  font-variation-settings: "SOFT" 30, "WONK" 0, "opsz" 36;
   text-wrap: balance;
 }
 
 p { text-wrap: pretty; }
 
-/* Appointment times, hours and fees are read in columns, so digits need a
-   fixed width. */
-.tabular, table { font-variant-numeric: tabular-nums; }
+/* Requisition references, day counts and SLA figures are read in columns,
+   so the digits need to be a fixed width. */
+table, .tabular {
+  font-variant-numeric: tabular-nums;
+}
 
 html { scroll-behavior: smooth; }
 

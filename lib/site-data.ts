@@ -1,256 +1,382 @@
 // lib/site-data.ts
 //
 // All placeholder content for the demonstration site lives here, so pages stay
-// presentational. Replacing this with real data means changing this file
-// rather than five page components.
+// presentational. Replacing this with real data — a CMS, or Salesforce records
+// pulled through an API route — means changing this file, not six pages.
 
 export const NAV = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
-  { href: '/clinics', label: 'Our Clinics' },
-  { href: '/practitioners', label: 'Practitioners' },
+  { href: '/requisitions', label: 'Job Requisitions' },
+  { href: '/slas', label: 'SLAs' },
+  { href: '/knowledge', label: 'Knowledge Article' },
+  { href: '/about', label: 'About Us' },
+  { href: '/recruiters', label: 'Our Recruiters' },
 ];
 
-export type Clinic = {
-  slug: string;
-  name: string;
-  suburb: string;
-  address: string;
-  phone: string;
-  hours: { days: string; time: string }[];
-  nextAvailable: string;
-  availability: 'open' | 'limited' | 'full';
-  note: string;
-  parking: string;
-};
+export type SlaState = 'ontrack' | 'atrisk' | 'breached';
 
-export const CLINICS: Clinic[] = [
-  {
-    slug: 'chermside',
-    name: 'TalentDuct RTAM-AI',
-    suburb: 'Chermside',
-    address: '412 Gympie Road, Chermside QLD 4032',
-    phone: '07 3000 0010',
-    hours: [
-      { days: 'Mon – Fri', time: '7:30am – 6:00pm' },
-      { days: 'Saturday', time: '8:00am – 1:00pm' },
-      { days: 'Sunday', time: 'Closed' },
-    ],
-    nextAvailable: 'Today, 2:40pm',
-    availability: 'open',
-    note: 'Our largest site, with on-site pathology and a dedicated treatment room.',
-    parking: 'Free undercover parking, entry via Farrington Street',
-  },
-  {
-    slug: 'south-bank',
-    name: 'TalentDuct RTAM-AI South Bank',
-    suburb: 'South Bank',
-    address: '9 Little Stanley Street, South Brisbane QLD 4101',
-    phone: '07 3000 0020',
-    hours: [
-      { days: 'Mon – Fri', time: '8:00am – 7:00pm' },
-      { days: 'Saturday', time: '9:00am – 2:00pm' },
-      { days: 'Sunday', time: 'Closed' },
-    ],
-    nextAvailable: 'Tomorrow, 9:15am',
-    availability: 'limited',
-    note: 'Extended weekday hours for people working in the CBD.',
-    parking: 'Paid parking at South Bank car park, 3 minute walk',
-  },
-  {
-    slug: 'toowong',
-    name: 'TalentDuct RTAM-AI Toowong',
-    suburb: 'Toowong',
-    address: '55 Sherwood Road, Toowong QLD 4066',
-    phone: '07 3000 0030',
-    hours: [
-      { days: 'Mon – Fri', time: '8:00am – 5:30pm' },
-      { days: 'Saturday', time: 'Closed' },
-      { days: 'Sunday', time: 'Closed' },
-    ],
-    nextAvailable: 'Thu 11 Sep, 10:00am',
-    availability: 'full',
-    note: 'Smaller practice with a focus on continuity of care.',
-    parking: 'Street parking on Sherwood Road, 2 hour limit',
-  },
-];
-
-export type Service = {
-  slug: string;
-  name: string;
+export type Requisition = {
+  ref: string;
+  title: string;
+  client: string;
+  location: string;
+  employment: string;
+  stage: string;
+  daysOpen: number;
+  slaTarget: number;
+  slaState: SlaState;
+  owner: string;
+  salary: string;
   summary: string;
-  includes: string[];
-  billing: string;
-  duration: string;
+  skills: string[];
 };
 
-export const SERVICES: Service[] = [
+export const REQUISITIONS: Requisition[] = [
   {
-    slug: 'general-practice',
-    name: 'General practice',
+    ref: 'REQ-2041',
+    title: 'Senior Data Engineer',
+    client: 'ASX-listed energy retailer',
+    location: 'Brisbane, hybrid',
+    employment: 'Permanent, full time',
+    stage: 'Shortlist with client',
+    daysOpen: 11,
+    slaTarget: 21,
+    slaState: 'ontrack',
+    owner: 'Nadia Farrow',
+    salary: '$165,000 – $185,000 + super',
     summary:
-      'Everyday medical care, from acute illness to ongoing management of long-term conditions.',
-    includes: [
-      'Standard and long consultations',
-      'Prescriptions and repeat scripts',
-      'Referrals to specialists and allied health',
-      'Medical certificates',
-    ],
-    billing: 'Bulk billed for concession card holders and under 16s',
-    duration: '15 or 30 minutes',
+      'Building the ingestion layer for a new customer analytics platform. Reports to the Head of Data.',
+    skills: ['Python', 'dbt', 'Snowflake', 'Airflow'],
   },
   {
-    slug: 'chronic-disease',
-    name: 'Chronic disease management',
+    ref: 'REQ-2038',
+    title: 'Cyber Security Analyst',
+    client: 'State government department',
+    location: 'Brisbane CBD, on site',
+    employment: 'Contract, 12 months',
+    stage: 'Interviewing',
+    daysOpen: 18,
+    slaTarget: 21,
+    slaState: 'atrisk',
+    owner: 'Tomas Beckett',
+    salary: '$95 – $110 per hour + super',
     summary:
-      'Structured, planned care for conditions that need coordination across several providers.',
-    includes: [
-      'GP Management Plans and Team Care Arrangements',
-      'Coordination with allied health under Medicare',
-      'Scheduled review appointments',
-      'Shared care with treating specialists',
-    ],
-    billing: 'Medicare rebates apply to eligible care plans',
-    duration: '45 minutes for the initial plan',
+      'SOC uplift programme. Baseline security clearance required, NV1 desirable.',
+    skills: ['SIEM', 'Splunk', 'Incident response', 'Essential Eight'],
   },
   {
-    slug: 'preventive-health',
-    name: 'Preventive health',
-    summary: 'Screening and health checks timed to age, family history and risk factors.',
-    includes: [
-      'Health assessments at 45–49 and 75+',
-      'Cervical screening and breast health',
-      'Skin checks with dermoscopy',
-      'Cardiovascular and diabetes risk screening',
-    ],
-    billing: 'Most health assessments are bulk billed',
-    duration: '30 to 45 minutes',
+    ref: 'REQ-2035',
+    title: 'Salesforce Solution Architect',
+    client: 'National not-for-profit',
+    location: 'Remote, AEST hours',
+    employment: 'Permanent, full time',
+    stage: 'Offer negotiation',
+    daysOpen: 24,
+    slaTarget: 21,
+    slaState: 'breached',
+    owner: 'Nadia Farrow',
+    salary: '$190,000 – $210,000 package',
+    summary:
+      'Consolidating four legacy CRMs onto a single Service Cloud instance. Candidate withdrew at offer stage, pipeline reopened.',
+    skills: ['Service Cloud', 'Integration', 'Data migration', 'Agentforce'],
   },
   {
-    slug: 'travel-immunisation',
-    name: 'Travel and immunisation',
-    summary: 'Vaccinations on the national schedule, plus destination-specific travel advice.',
-    includes: [
-      'Childhood and adult immunisation schedule',
-      'Influenza and COVID-19 vaccination',
-      'Travel consultations with destination risk advice',
-      'Yellow fever vaccination certificates',
-    ],
-    billing: 'Consultation billed separately from vaccine cost',
-    duration: '20 minutes, 40 for travel consults',
+    ref: 'REQ-2044',
+    title: 'Frontend Developer',
+    client: 'Series B fintech',
+    location: 'Sydney, hybrid',
+    employment: 'Permanent, full time',
+    stage: 'Sourcing',
+    daysOpen: 4,
+    slaTarget: 21,
+    slaState: 'ontrack',
+    owner: 'Priya Anand',
+    salary: '$130,000 – $150,000 + equity',
+    summary:
+      'Rebuilding the customer onboarding journey. Small team, high autonomy.',
+    skills: ['React', 'TypeScript', 'Next.js', 'Accessibility'],
   },
   {
-    slug: 'mental-health',
-    name: 'Mental health',
-    summary: 'Assessment, treatment planning and referral, with review built into the plan.',
-    includes: [
-      'Mental Health Treatment Plans',
-      'Referral to psychologists and psychiatrists',
-      'Review appointments after six sessions',
-      'Support for carers and family members',
-    ],
-    billing: 'Medicare rebates for up to 10 sessions per calendar year',
-    duration: '45 minutes for the initial plan',
+    ref: 'REQ-2029',
+    title: 'Change Manager',
+    client: 'Tier 1 construction group',
+    location: 'Melbourne, on site',
+    employment: 'Contract, 6 months',
+    stage: 'Shortlist with client',
+    daysOpen: 16,
+    slaTarget: 21,
+    slaState: 'atrisk',
+    owner: 'Tomas Beckett',
+    salary: '$800 – $900 per day',
+    summary:
+      'ERP rollout across 2,400 staff. Prosci certification preferred.',
+    skills: ['Prosci', 'Stakeholder engagement', 'ERP rollout'],
   },
   {
-    slug: 'telehealth',
-    name: 'Telehealth',
-    summary: 'Phone and video consultations for follow-ups, results and repeat prescriptions.',
-    includes: [
-      'Video consultations with your usual GP',
-      'Discussion of test results',
-      'Repeat prescriptions sent electronically',
-      'Referral renewals',
-    ],
-    billing: 'Rebates apply if you have seen us in the last 12 months',
-    duration: '15 minutes',
+    ref: 'REQ-2046',
+    title: 'Payroll Officer',
+    client: 'Regional health service',
+    location: 'Toowoomba, on site',
+    employment: 'Permanent, part time',
+    stage: 'Sourcing',
+    daysOpen: 2,
+    slaTarget: 21,
+    slaState: 'ontrack',
+    owner: 'Priya Anand',
+    salary: '$85,000 pro rata + super',
+    summary:
+      'Three days per week. Award interpretation experience essential.',
+    skills: ['Chris21', 'Award interpretation', 'End-to-end payroll'],
   },
 ];
 
-export type Practitioner = {
+export type Sla = {
+  code: string;
+  name: string;
+  commitment: string;
+  target: string;
+  actual: string;
+  state: SlaState;
+  measured: string;
+  detail: string;
+};
+
+export const SLAS: Sla[] = [
+  {
+    code: 'SLA-01',
+    name: 'Acknowledge new requisition',
+    commitment: 'We confirm receipt and assign a recruiter',
+    target: '4 business hours',
+    actual: '1.8 hours',
+    state: 'ontrack',
+    measured: 'From requisition submitted to owner assigned',
+    detail:
+      'Requisitions received after 4:00pm AEST are acknowledged the following business morning.',
+  },
+  {
+    code: 'SLA-02',
+    name: 'First shortlist delivered',
+    commitment: 'At least three screened candidates presented',
+    target: '5 business days',
+    actual: '4.6 days',
+    state: 'ontrack',
+    measured: 'From requisition acknowledged to shortlist sent',
+    detail:
+      'Where a role requires a security clearance, the target extends to 10 business days.',
+  },
+  {
+    code: 'SLA-03',
+    name: 'Candidate feedback returned',
+    commitment: 'Interview outcome communicated to every candidate',
+    target: '48 hours',
+    actual: '61 hours',
+    state: 'atrisk',
+    measured: 'From interview completed to candidate contacted',
+    detail:
+      'Applies to all candidates who reach interview, whether successful or not.',
+  },
+  {
+    code: 'SLA-04',
+    name: 'Offer documentation issued',
+    commitment: 'Contract and onboarding pack sent to the candidate',
+    target: '24 hours',
+    actual: '19 hours',
+    state: 'ontrack',
+    measured: 'From verbal offer accepted to documents issued',
+    detail: 'Includes right-to-work verification and reference check summary.',
+  },
+  {
+    code: 'SLA-05',
+    name: 'Time to fill',
+    commitment: 'Requisition closed with a placed candidate',
+    target: '21 calendar days',
+    actual: '25 days',
+    state: 'breached',
+    measured: 'From requisition opened to offer accepted',
+    detail:
+      'Currently breached across two open requisitions. Recovery plan reviewed weekly with affected clients.',
+  },
+  {
+    code: 'SLA-06',
+    name: 'Enquiry response',
+    commitment: 'Any enquiry lodged through this site receives a reply',
+    target: '1 business day',
+    actual: '5.2 hours',
+    state: 'ontrack',
+    measured: 'From case created to first human response',
+    detail:
+      'Enquiries lodged through the assistant create a case immediately and are triaged by the duty recruiter.',
+  },
+];
+
+export type Article = {
+  slug: string;
+  category: string;
+  title: string;
+  updated: string;
+  readTime: string;
+  summary: string;
+  body: string[];
+};
+
+export const ARTICLES: Article[] = [
+  {
+    slug: 'what-happens-after-you-apply',
+    category: 'For candidates',
+    title: 'What happens after you apply',
+    updated: '12 August 2026',
+    readTime: '3 min',
+    summary:
+      'The stages your application moves through, who sees it, and when you should expect to hear from us.',
+    body: [
+      'Every application is read by a person. We do not screen out applications automatically, though we do use software to organise them by requisition and to flag missing right-to-work documentation.',
+      'Within two business days you will receive either an invitation to a screening call or a note that we are not progressing your application. If a role is heavily subscribed this can stretch to five days, and we will tell you if that is the case.',
+      'Screening calls run for about twenty minutes and cover your work history, what you are looking for, your notice period and your salary expectations. We ask about salary early because it is the most common reason a process ends late, and ending it late wastes your time more than ours.',
+      'If we shortlist you, your details go to the client with a written summary we have prepared. You will see that summary before it is sent. We do not send your résumé to any client without telling you which client it is going to.',
+    ],
+  },
+  {
+    slug: 'right-to-work-evidence',
+    category: 'For candidates',
+    title: 'Right to work evidence we need',
+    updated: '3 July 2026',
+    readTime: '2 min',
+    summary:
+      'Which documents establish your right to work in Australia, and what we do with them.',
+    body: [
+      'Before you start any placement we are required to verify your right to work. For Australian citizens this is a passport, or a birth certificate together with photo identification.',
+      'For permanent residents and visa holders we use the Department of Home Affairs VEVO service, which requires your passport number and date of birth. We do not retain your visa grant notice.',
+      'Documents are held for the duration of your placement plus seven years, as required for employment records. You can ask us at any time what we hold about you.',
+    ],
+  },
+  {
+    slug: 'how-we-price-a-requisition',
+    category: 'For clients',
+    title: 'How we price a requisition',
+    updated: '28 August 2026',
+    readTime: '4 min',
+    summary:
+      'What sits behind a placement fee, and where the variation between roles comes from.',
+    body: [
+      'Permanent placements are charged as a percentage of the first year total package, invoiced on the candidate start date. The percentage varies by role scarcity rather than by seniority alone.',
+      'Contract placements are charged as a margin on the hourly or daily rate. The margin covers payroll, insurance, superannuation administration and our recruitment effort. We show the margin separately on every timesheet.',
+      'Where a requisition requires a security clearance, specialist assessment, or search outside our existing network, we agree the additional scope in writing before starting work.',
+      'Our replacement guarantee runs for twelve weeks on permanent placements. If a candidate leaves within that period for a reason other than redundancy or a change to the role, we replace them at no further fee.',
+    ],
+  },
+  {
+    slug: 'raising-an-sla-concern',
+    category: 'For clients',
+    title: 'Raising a concern about an SLA',
+    updated: '19 August 2026',
+    readTime: '2 min',
+    summary:
+      'What to do when a commitment on the SLAs page has not been met.',
+    body: [
+      'Raise it through the assistant on this site, or with your account manager directly. Lodging it through the assistant creates a case, which means it is tracked and reportable rather than sitting in an inbox.',
+      'Tell us the requisition reference and which SLA you believe has been missed. The reference is enough for us to pull the timeline.',
+      'We respond within one business day with the measured timeline, whether we agree the SLA was missed, and what we are doing about it. Where we have missed a commitment we say so plainly.',
+    ],
+  },
+];
+
+export type Recruiter = {
   slug: string;
   name: string;
-  credentials: string;
   role: string;
-  clinics: string[];
-  interests: string[];
+  desk: string;
+  office: string;
+  specialisms: string[];
   languages: string[];
-  nextAvailable: string;
+  placements: string;
+  tenure: string;
   bio: string;
 };
 
-export const PRACTITIONERS: Practitioner[] = [
+export const RECRUITERS: Recruiter[] = [
   {
-    slug: 'amara-osei',
-    name: 'Dr Amara Osei',
-    credentials: 'MBBS, FRACGP',
-    role: 'General Practitioner',
-    clinics: ['Chermside', 'South Bank'],
-    interests: ["Women's health", 'Chronic disease', 'Paediatrics'],
-    languages: ['English', 'Twi'],
-    nextAvailable: 'Today, 3:20pm',
-    bio: 'Amara has worked in general practice in Brisbane since 2014, with a particular interest in continuity of care for families.',
-  },
-  {
-    slug: 'daniel-whitcombe',
-    name: 'Dr Daniel Whitcombe',
-    credentials: 'MBBS, FRACGP, DCH',
-    role: 'General Practitioner',
-    clinics: ['Chermside'],
-    interests: ['Skin cancer medicine', 'Minor procedures', 'Chronic pain'],
+    slug: 'nadia-farrow',
+    name: 'Nadia Farrow',
+    role: 'Principal Consultant',
+    desk: 'Data & Platform Engineering',
+    office: 'Brisbane',
+    specialisms: ['Data engineering', 'Cloud platform', 'Salesforce'],
     languages: ['English'],
-    nextAvailable: 'Tomorrow, 8:45am',
-    bio: 'Daniel holds a Diploma of Child Health and runs our skin check and minor procedures clinic on Wednesdays.',
+    placements: '48 placements',
+    tenure: 'With TalentDuct since 2019',
+    bio: 'Nadia ran a data team before moving into recruitment, which is why her briefing notes tend to be longer than everyone else\u2019s.',
   },
   {
-    slug: 'priya-raghavan',
-    name: 'Dr Priya Raghavan',
-    credentials: 'MBBS, FRACGP',
-    role: 'General Practitioner',
-    clinics: ['South Bank', 'Toowong'],
-    interests: ['Mental health', 'Adolescent health', 'Preventive care'],
-    languages: ['English', 'Tamil', 'Hindi'],
-    nextAvailable: 'Mon 8 Sep, 11:30am',
-    bio: 'Priya has additional training in adolescent mental health and works closely with our psychology partners.',
+    slug: 'tomas-beckett',
+    name: 'Tomas Beckett',
+    role: 'Senior Consultant',
+    desk: 'Security & Infrastructure',
+    office: 'Brisbane',
+    specialisms: ['Cyber security', 'Government contracts', 'Cleared candidates'],
+    languages: ['English', 'Czech'],
+    placements: '35 placements',
+    tenure: 'With TalentDuct since 2021',
+    bio: 'Tomas handles most of our state and federal government work and knows the clearance timelines better than the paperwork does.',
   },
   {
-    slug: 'siobhan-clarke',
-    name: 'Siobhan Clarke',
-    credentials: 'RN, MN',
-    role: 'Practice Nurse',
-    clinics: ['Chermside', 'Toowong'],
-    interests: ['Wound care', 'Immunisation', 'Health assessments'],
-    languages: ['English'],
-    nextAvailable: 'Today, 1:00pm',
-    bio: 'Siobhan coordinates our immunisation program and conducts health assessments for patients over 75.',
+    slug: 'priya-anand',
+    name: 'Priya Anand',
+    role: 'Consultant',
+    desk: 'Software Engineering',
+    office: 'Sydney',
+    specialisms: ['Frontend', 'Mobile', 'Early-stage companies'],
+    languages: ['English', 'Hindi', 'Telugu'],
+    placements: '22 placements',
+    tenure: 'With TalentDuct since 2023',
+    bio: 'Priya covers the Sydney startup market and runs our returner programme for people coming back after a career break.',
   },
   {
-    slug: 'marcus-tan',
-    name: 'Dr Marcus Tan',
-    credentials: 'MBBS, FRACGP, MPH',
-    role: 'General Practitioner',
-    clinics: ['Toowong'],
-    interests: ['Travel medicine', 'Infectious disease', 'Refugee health'],
-    languages: ['English', 'Mandarin', 'Malay'],
-    nextAvailable: 'Wed 10 Sep, 2:00pm',
-    bio: 'Marcus holds a Master of Public Health and leads our travel medicine and refugee health services.',
+    slug: 'grace-oyelaran',
+    name: 'Grace Oyelaran',
+    role: 'Account Director',
+    desk: 'Client partnerships',
+    office: 'Brisbane',
+    specialisms: ['Enterprise accounts', 'SLA governance', 'Panel arrangements'],
+    languages: ['English', 'Yoruba'],
+    placements: 'Manages 14 accounts',
+    tenure: 'With TalentDuct since 2018',
+    bio: 'Grace owns our largest client relationships and chairs the monthly SLA review with panel clients.',
   },
   {
-    slug: 'helen-baptiste',
-    name: 'Dr Helen Baptiste',
-    credentials: 'MBBS, FRACGP',
-    role: 'General Practitioner',
-    clinics: ['South Bank'],
-    interests: ['Older persons health', 'Palliative care', 'Dementia'],
-    languages: ['English', 'French'],
-    nextAvailable: 'Fri 5 Sep, 9:00am',
-    bio: 'Helen provides in-home visits for housebound patients in the inner south and works with local palliative care teams.',
+    slug: 'daniel-kwon',
+    name: 'Daniel Kwon',
+    role: 'Consultant',
+    desk: 'Corporate & Transformation',
+    office: 'Melbourne',
+    specialisms: ['Change management', 'Project services', 'Business analysis'],
+    languages: ['English', 'Korean'],
+    placements: '19 placements',
+    tenure: 'With TalentDuct since 2024',
+    bio: 'Daniel places change and project people into large transformation programmes, mostly on contract.',
+  },
+  {
+    slug: 'meredith-hale',
+    name: 'Meredith Hale',
+    role: 'Candidate Care Lead',
+    desk: 'Candidate experience',
+    office: 'Brisbane',
+    specialisms: ['Onboarding', 'Right to work', 'Feedback quality'],
+    languages: ['English', 'Auslan'],
+    placements: 'Supports all desks',
+    tenure: 'With TalentDuct since 2020',
+    bio: 'Meredith owns the candidate feedback SLA and is the person to contact if you have applied and heard nothing.',
   },
 ];
 
-export const NEW_PATIENT_FACTS = [
-  { term: 'Standard consultation', detail: '15 minutes' },
-  { term: 'Long consultation', detail: '30 minutes' },
-  { term: 'Bulk billing', detail: 'Concession & under 16' },
-  { term: 'Telehealth', detail: 'Existing patients' },
+export const OFFICES = [
+  { city: 'Brisbane', address: 'Level 8, 133 Mary Street, Brisbane QLD 4000', phone: '07 3555 0100' },
+  { city: 'Sydney', address: 'Suite 22, 45 Clarence Street, Sydney NSW 2000', phone: '02 8555 0140' },
+  { city: 'Melbourne', address: 'Level 3, 520 Bourke Street, Melbourne VIC 3000', phone: '03 9555 0180' },
+];
+
+export const COMPANY_STATS = [
+  { figure: '312', label: 'Placements in the last 12 months' },
+  { figure: '18.4', label: 'Median days to fill' },
+  { figure: '91%', label: 'SLA commitments met' },
+  { figure: '87%', label: 'Candidates still placed at 12 months' },
 ];

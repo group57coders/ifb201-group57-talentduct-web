@@ -80,7 +80,7 @@ function loadEnvFile(path) {
 
 const REQUIRED = ['SF_MY_DOMAIN_URL', 'SF_CONSUMER_KEY', 'SF_CONSUMER_SECRET', 'SF_AGENT_ID'];
 
-console.log(`\n${c.bold}Silverline — Salesforce configuration check${c.reset}`);
+console.log(`\n${c.bold}TalentDuct — Salesforce configuration check${c.reset}`);
 console.log(`${c.dim}Reading ${ENV_PATH}${c.reset}`);
 
 const { env, problems } = loadEnvFile(ENV_PATH);

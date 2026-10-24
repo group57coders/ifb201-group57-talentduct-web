@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Fraunces } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteChrome";
@@ -8,18 +8,18 @@ import SiteChat from "@/components/SiteChat";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
-// Display face, headings only. A warm variable serif conveys establishment
-// without the corporate blue that most medical sites reach for.
-const fraunces = Fraunces({
+// A grotesk rather than a serif for the display face: this is a firm that
+// sells measured performance, not heritage.
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
-  axes: ["SOFT", "WONK", "opsz"],
+  weight: ["500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "TalentDuct RTAM-AI",
+  title: "TalentDuct Recruitment",
   description:
-    "General practice across three Brisbane clinics. Check availability, browse services and meet our practitioners.",
+    "Specialist recruitment across technology, security and corporate services in Australia.",
 };
 
 export default function RootLayout({
@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html
       lang="en-AU"
-      className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
         <SiteHeader />

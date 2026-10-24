@@ -6,10 +6,10 @@ import AgentChat from './AgentChat';
 
 /**
  * Mounted once in app/layout.tsx so the widget follows the visitor across every
- * page. The complaints page is excluded — a floating support assistant hovering
- * over a complaints form sends a muddled message.
+ * page. Add paths here to suppress it on specific routes — usePathname rather
+ * than window.location, so it reacts to client-side navigation.
  */
-const HIDDEN_ON = ['/complaints'];
+const HIDDEN_ON: string[] = [];
 
 export default function SiteChat() {
   const pathname = usePathname();
@@ -18,9 +18,9 @@ export default function SiteChat() {
 
   return (
     <ChatWidget
-      title="Silverline Support"
-      subtitle="Answers come from an AI assistant"
-      launcherLabel="Chat with us"
+      title="Recruitment enquiries"
+      subtitle="Ask about a role, an SLA, or lodge a case"
+      launcherLabel="Ask a question"
     >
       <AgentChat />
     </ChatWidget>

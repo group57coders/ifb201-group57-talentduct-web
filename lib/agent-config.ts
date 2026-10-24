@@ -50,4 +50,4 @@ export const config = {
   },
 };
 
-export const SESSION_COOKIE = 'sl_agent_session';
+export const SESSION_COOKIE = 'td_agent_session';

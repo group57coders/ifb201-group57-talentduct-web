@@ -236,7 +236,7 @@ export default function AgentChat() {
               send();
             }
           }}
-          placeholder="Ask about appointments, results, or billing"
+          placeholder="Ask about a role, an SLA, or lodge an enquiry"
           disabled={status === 'starting' || status === 'error'}
           aria-label="Message"
           className="flex-1 rounded-lg border border-line bg-card px-3 py-2 text-sm text-ink outline-none focus:border-brand disabled:opacity-50"
